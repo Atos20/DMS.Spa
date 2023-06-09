@@ -33,6 +33,8 @@
     }
   },
   "rules": {
+    "no-shadow": "off",
+    "import/prefer-default-export": "off",
     "react/function-component-definition": [
       2,
       {
