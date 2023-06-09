@@ -1,5 +1,17 @@
-import React, { FC } from 'react';
+import { useState } from 'react';
 
-export const App: FC = () => <div>App</div>;
+import { Box } from '@chakra-ui/react';
+
+import ThemeToggleButton from './components/ThemeToggleButton';
+
+const App = (): JSX.Element => {
+  const [count, setCount] = useState(0);
+
+  return (
+    <Box>
+      <ThemeToggleButton pos="fixed" bottom="2" right="2" />
+    </Box>
+  );
+};
 
 export default App;
