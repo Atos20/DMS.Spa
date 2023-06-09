@@ -6,3 +6,9 @@ dist-ssr
 coverage
 .env
 build
+
+# dotenv environment variables file
+.env
+.env.test
+.env.local
+.env.production
