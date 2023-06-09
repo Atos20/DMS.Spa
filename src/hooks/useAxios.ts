@@ -23,8 +23,8 @@ export const useAxios = <T>({ method, url, params }: IAxiosParams<T>) => {
     <T>({ method, url, params }: IAxiosParams<T>) =>
     async () => {
       if (!url) {
-        setError('Got bad news for you');
-        throw new Error('Got bad news for you');
+        setError('Internal error, please talk to your administrator');
+        throw new Error('Internal error, please talk to your administrator');
       }
       setLoading(true);
       try {
@@ -32,13 +32,13 @@ export const useAxios = <T>({ method, url, params }: IAxiosParams<T>) => {
           method,
           url,
           data: params,
-          headers: {
-            Authorization: import.meta.env.VITE_AUTH_TOKEN,
-          },
+          headers: {},
         });
+
         if (result) {
           setResponse(response as AxiosResponse<unknown>);
         }
+
         setError(null);
       } catch (err) {
         setError(err as string);
