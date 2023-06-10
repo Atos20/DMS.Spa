@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
@@ -56,6 +55,7 @@ const App = (): JSX.Element => {
         }
       />
       <Route path="classes" element={<Classes />} />
+      <Route path="*" element={<div>NOt FOUND</div>} />
     </Routes>
   );
 };
