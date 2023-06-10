@@ -33,6 +33,7 @@ export const Home: FC<HomeProps> = ({
   const SKELETON_COUNT = Array.from({ length: 6 }, (_, index) => index + 1);
   // for dummy purpose
   const dummyData = schoolsDumyData;
+
   return (
     <Box overflow="scroll" mr={10} ml={10} bg="pink" w="100%" maxH="90vh">
       <Text p={0} fontSize="2xl">
