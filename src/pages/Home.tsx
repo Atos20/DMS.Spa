@@ -17,25 +17,30 @@ import {
   Text,
 } from '@chakra-ui/react';
 
-import { School } from '../App';
 import { schoolsDumyData } from '../dummyData/schoolsData';
+import { School } from '../interfaces/school';
 
 interface HomeProps {
   schools?: School[];
+  handleSchoolChange: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
-export const Home: FC<HomeProps> = ({ schools, ...props }) => {
+export const Home: FC<HomeProps> = ({
+  schools,
+  handleSchoolChange,
+  ...props
+}) => {
   const SKELETON_COUNT = Array.from({ length: 6 }, (_, index) => index + 1);
   // for dummy purpose
-  // const dummyData = schoolsDumyData;
+  const dummyData = schoolsDumyData;
   return (
-    <Box mr={10} ml={10} bg="pink" w="100%">
-      <Text p={10} fontSize="2xl">
+    <Box overflow="scroll" mr={10} ml={10} bg="pink" w="100%" maxH="90vh">
+      <Text p={0} fontSize="2xl">
         School List
       </Text>
-      {schools && schools?.length > 0 ? (
+      {dummyData && dummyData?.length > 0 ? (
         <SimpleGrid minChildWidth="300px" spacingX="20px" spacingY="20px">
-          {schools?.map((daycare) => (
+          {dummyData.map((daycare) => (
             <Box key={daycare.schoolId} bg="tomato" h={400} w={300}>
               <Card h="100%" maxW="sm">
                 <CardBody>
@@ -54,7 +59,12 @@ export const Home: FC<HomeProps> = ({ schools, ...props }) => {
                 <Divider />
                 <CardFooter>
                   <ButtonGroup spacing="2">
-                    <Button variant="solid" colorScheme="blue">
+                    <Button
+                      id={daycare.schoolId.toString()}
+                      variant="solid"
+                      colorScheme="blue"
+                      onClick={handleSchoolChange}
+                    >
                       Select
                     </Button>
                   </ButtonGroup>
