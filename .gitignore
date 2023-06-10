@@ -12,3 +12,6 @@ build
 .env.test
 .env.local
 .env.production
+
+# yarn
+yarn-error.log
