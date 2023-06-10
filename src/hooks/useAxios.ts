@@ -28,14 +28,14 @@ export const useAxios = <T>({ method, url, params }: IAxiosParams<T>) => {
       }
       setLoading(true);
       try {
-        const result = await baseRouter({
+        const response = await baseRouter({
           method,
           url,
           data: params,
           headers: {},
         });
 
-        if (result) {
+        if (response) {
           setResponse(response as AxiosResponse<unknown>);
         }
 
