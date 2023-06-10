@@ -1,3 +1,5 @@
+import { FC, useEffect, useState } from 'react';
+
 import {
   Box,
   Button,
@@ -14,8 +16,39 @@ import {
 } from '@chakra-ui/react';
 
 import { dummyClassrooms } from '../dummyData/classrooms';
+import { REQUEST_METHOD, useAxios } from '../hooks/useAxios';
+import { Classroom } from '../interfaces/classRoom';
+import { GET_SCHOOL_CLASSROOMS, handleIdSelection } from '../routes/routes';
 
-export const Classes = () => {
+interface ClassesProps {
+  schoolId?: number | null;
+}
+
+export const Classes: FC<ClassesProps> = ({ schoolId, ...props }) => {
+  const [classes, setClasses] = useState<Classroom[]>([]);
+
+  const {
+    getResponse: getClassesData,
+    response,
+    loading,
+  } = useAxios({
+    method: REQUEST_METHOD.GET,
+    url: handleIdSelection(GET_SCHOOL_CLASSROOMS, schoolId?.toString()),
+  });
+
+  useEffect(() => {
+    if (schoolId) {
+      getClassesData();
+    }
+  }, [schoolId]);
+
+  useEffect(() => {
+    if (response) {
+      setClasses(response.data as unknown as Classroom[]);
+    }
+  }, [response]);
+
+  // dymmyData
   const dummyClassroomData = dummyClassrooms;
 
   return (
@@ -87,4 +120,8 @@ export const Classes = () => {
       </Box>
     </Container>
   );
+};
+
+Classes.defaultProps = {
+  schoolId: null,
 };

@@ -1,7 +1,5 @@
-export const createMovieUrlbyReplacingId = (
-  slug: string,
-  id?: string
-): string => (id ? slug.replace(':id', id) : '');
+export const handleIdSelection = (slug: string, id?: string): string =>
+  id ? slug.replace(':id', id) : '';
 
 // Get All the Schools
 export const SCHOOL_ENDPOINT_SLUG = '/School';
