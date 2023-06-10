@@ -3,7 +3,6 @@ import { Route, Routes } from 'react-router-dom';
 
 import { NavBar } from './components/NavBar';
 import { REQUEST_METHOD, useAxios } from './hooks/useAxios';
-import { Classroom } from './interfaces/classRoom';
 import { Classes } from './pages/Classes';
 import { Home } from './pages/Home';
 import { GET_ALL_SCHOOLS } from './routes/routes';
@@ -16,9 +15,9 @@ export interface School {
 
 const App = (): JSX.Element => {
   const [schools, setSchools] = useState<School[]>([]);
-  const [classes, setClasses] = useState<Classroom[]>([]);
   const [schoolId, setSchoolId] = useState<number | null>(null);
-  const [currentSchool, setCurrentSchool] = useState<School>();
+  // required when persistin school Data accross component
+  // const [currentSchool, setCurrentSchool] = useState<School>();
 
   const {
     getResponse: getSchoolsData,
@@ -39,12 +38,15 @@ const App = (): JSX.Element => {
     }
   }, [response]);
 
+  // the school id is then passes down to the classes
+  // => classes will make the call to get all classes
   const handleSchoolChange = (event: React.MouseEvent<HTMLButtonElement>) => {
     const schoolId = event.currentTarget.id;
     const parsedNumber = parseInt(schoolId, 10);
     setSchoolId(parsedNumber);
   };
 
+  // TODO: create ROUTE_SLUG file for path const
   return (
     <Routes>
       <Route path="" element={<NavBar />} />
@@ -54,8 +56,11 @@ const App = (): JSX.Element => {
           <Home schools={schools} handleSchoolChange={handleSchoolChange} />
         }
       />
-      <Route path="classes" element={<Classes />} />
-      <Route path="*" element={<div>NOt FOUND</div>} />
+      <Route
+        path="home/classes/:id"
+        element={<Classes schoolId={schoolId} />}
+      />
+      <Route path="*" element={<div>NOT FOUND</div>} />
     </Routes>
   );
 };
