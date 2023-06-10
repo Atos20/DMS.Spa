@@ -1,11 +1,13 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-
-import { Box, Center, Container, Flex, Text } from '@chakra-ui/react';
+import { Route, Routes } from 'react-router-dom';
 
 import { NavBar } from './components/NavBar';
-import ThemeToggleButton from './components/ThemeToggleButton';
+import { REQUEST_METHOD, useAxios } from './hooks/useAxios';
+import { Classroom } from './interfaces/classRoom';
+import { Classes } from './pages/Classes';
 import { Home } from './pages/Home';
+import { GET_ALL_SCHOOLS } from './routes/routes';
 
 export interface School {
   schoolId: number;
@@ -15,33 +17,46 @@ export interface School {
 
 const App = (): JSX.Element => {
   const [schools, setSchools] = useState<School[]>([]);
-  const [error, setError] = useState<boolean>(false);
-  const [loading, setLoading] = useState<boolean>(false);
+  const [classes, setClasses] = useState<Classroom[]>([]);
+  const [schoolId, setSchoolId] = useState<number | null>(null);
+  const [currentSchool, setCurrentSchool] = useState<School>();
+
+  const {
+    getResponse: getSchoolsData,
+    response,
+    loading,
+  } = useAxios({
+    method: REQUEST_METHOD.GET,
+    url: GET_ALL_SCHOOLS,
+  });
 
   useEffect(() => {
-    setLoading(true);
-    axios
-      .get('https://localhost:7136/api/School')
-      .then((response) => {
-        setSchools(response.data as unknown as School[]);
-        setLoading(false);
-      })
-      .catch((error) => {
-        setError(true);
-        console.warn(error);
-      });
+    getSchoolsData();
   }, []);
 
+  useEffect(() => {
+    if (response) {
+      setSchools(response?.data as unknown as School[]);
+    }
+  }, [response]);
+
+  const handleSchoolChange = (event: React.MouseEvent<HTMLButtonElement>) => {
+    const schoolId = event.currentTarget.id;
+    const parsedNumber = parseInt(schoolId, 10);
+    setSchoolId(parsedNumber);
+  };
+
   return (
-    <Box p={20} pt={0} h="100%">
-      <Container maxW="container.xl" p={0} bg="gray.300" h="100%">
-        <NavBar />
-        <Flex h="100%" py={20}>
-          <Home schools={schools} />
-        </Flex>
-      </Container>
-      <ThemeToggleButton pos="fixed" bottom="2" right="2" />
-    </Box>
+    <Routes>
+      <Route path="" element={<NavBar />} />
+      <Route
+        path="home"
+        element={
+          <Home schools={schools} handleSchoolChange={handleSchoolChange} />
+        }
+      />
+      <Route path="classes" element={<Classes />} />
+    </Routes>
   );
 };
 
