@@ -41,6 +41,7 @@ export const Classes = () => {
           <Box h={200} bg="red.300">
             {dummyClassroomData.map((classroom) => (
               <Card
+                key={classroom.classRoomId}
                 direction={{ base: 'column', sm: 'row' }}
                 overflow="hidden"
                 variant="outline"
