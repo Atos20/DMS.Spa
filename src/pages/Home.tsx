@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import { Link } from 'react-router-dom';
 
 import {
   Box,
@@ -60,14 +61,16 @@ export const Home: FC<HomeProps> = ({
                   <Divider />
                   <CardFooter>
                     <ButtonGroup spacing="2">
-                      <Button
-                        id={daycare.schoolId.toString()}
-                        variant="solid"
-                        colorScheme="blue"
-                        onClick={handleSchoolChange}
-                      >
-                        Select
-                      </Button>
+                      <Link to={`classes/${daycare.schoolId}`}>
+                        <Button
+                          id={daycare.schoolId.toString()}
+                          variant="solid"
+                          colorScheme="blue"
+                          onClick={handleSchoolChange}
+                        >
+                          Select
+                        </Button>
+                      </Link>
                     </ButtonGroup>
                   </CardFooter>
                 </Card>
