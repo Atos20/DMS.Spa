@@ -32,7 +32,7 @@ export const Home: FC<HomeProps> = ({
   ...props
 }) => {
   const SKELETON_COUNT = Array.from({ length: 6 }, (_, index) => index + 1);
-  // for dummy purpose
+  // for testing purpose
   const dummyData = schoolsDumyData;
   return (
     <Container
@@ -54,7 +54,7 @@ export const Home: FC<HomeProps> = ({
                 bg="tomato"
                 h={400}
                 w={300}
-                test-id="school-container"
+                data-testid="school-card"
               >
                 <Card h="100%" maxW="sm">
                   <CardBody>

@@ -35,7 +35,12 @@ describe('Test Home componetn', () => {
       </BrowserRouter>
     );
     // Assert
+    // should it only be one parent componetn
     const schoolContainers = screen.getAllByTestId('school-container');
     expect(schoolContainers).toHaveLength(1);
+
+    // There should only be one card per object in the array
+    const schoolCards = screen.getAllByTestId('school-card');
+    expect(schoolCards).toHaveLength(dummyData.length);
   });
 });
