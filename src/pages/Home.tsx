@@ -32,10 +32,16 @@ export const Home: FC<HomeProps> = ({
   ...props
 }) => {
   const SKELETON_COUNT = Array.from({ length: 6 }, (_, index) => index + 1);
-  // for dummy purpose
+  // for testing purpose
   const dummyData = schoolsDumyData;
   return (
-    <Container maxW="container.xl" p={0} bg="gray.300" h="80%">
+    <Container
+      maxW="container.xl"
+      p={0}
+      bg="gray.300"
+      h="80%"
+      data-testid="school-container"
+    >
       <Box overflow="scroll" mr={10} ml={10} bg="pink" maxH="90vh">
         <Text p={0} fontSize="2xl">
           School List
@@ -43,7 +49,13 @@ export const Home: FC<HomeProps> = ({
         {dummyData && dummyData?.length > 0 ? (
           <SimpleGrid minChildWidth="300px" spacingX="20px" spacingY="20px">
             {dummyData.map((daycare) => (
-              <Box key={daycare.schoolId} bg="tomato" h={400} w={300}>
+              <Box
+                key={daycare.schoolId}
+                bg="tomato"
+                h={400}
+                w={300}
+                data-testid="school-card"
+              >
                 <Card h="100%" maxW="sm">
                   <CardBody>
                     <Image
