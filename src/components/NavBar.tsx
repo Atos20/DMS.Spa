@@ -18,7 +18,9 @@ export const NavBar = () => (
     >
       <Link to="home">
         <Button borderRadius="50%" colorScheme="teal" h={200} w={200}>
-          Button
+          <Text as="h1" fontSize="4xl">
+            Start!
+          </Text>
         </Button>
       </Link>
     </AbsoluteCenter>
